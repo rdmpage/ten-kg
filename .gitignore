@@ -1,2 +1,8 @@
 /vendor/
 .DS_Store
+
+/oxigraph/*
+!/oxigraph/README.md
+
+*.nt
+*.zip
