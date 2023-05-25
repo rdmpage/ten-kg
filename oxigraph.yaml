@@ -1,0 +1,17 @@
+# Configuration file for triple store
+# oxigraph_server -l . serve
+
+# Oxigraph
+maker: oxigraph
+url: http://localhost:7878
+query_endpoint: query
+upload_endpoint: store
+update_endpoint: update
+graph_parameter: graph
+default_graph: default
+
+# uploading
+sleep: 10 # seconds between uploading a chunk
+xml_chunk_size: 1000 # number of records in an XML chunk
+triples_chunk_size: 100000 # number of rows in a triples chunk
+break_on_fail: false # if true we stop uploading when we encounter an error
