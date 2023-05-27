@@ -4,8 +4,14 @@
 
 require_once (dirname(__FILE__) . '/core.php');
 
-//$triplestore = get_triplestore('blazegraph.yaml');
-$triplestore = get_triplestore('oxigraph.yaml');
+if (0)
+{
+	$triplestore = get_triplestore('oxigraph.yaml');
+}
+else
+{
+	$triplestore = get_triplestore('blazegraph.yaml');
+}
 
 if (!$triplestore)
 {
@@ -13,7 +19,10 @@ if (!$triplestore)
 }
 
 $sources = array(
-	'orcid.yaml'
+	//'indexfungorum.yaml',
+	//'ipni.yaml',
+	//'orcid.yaml',
+	'bionames.yaml',
 );
 
 

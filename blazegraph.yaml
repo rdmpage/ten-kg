@@ -1,0 +1,21 @@
+# Configuration file for triple store
+
+# Blazegraph
+
+# Blazegraph supports namespaces so you can have more than one
+# triplestore on the same server. Unless explicitly specified
+# eveything is stored in the default namespace (which you don't have to specify)
+
+maker:            blazegraph
+url:              http://localhost:9999/blazegraph
+query_endpoint:   sparql
+upload_endpoint:  sparql
+update_endpoint:            
+graph_parameter:  context-uri
+default_graph:
+
+# uploading
+sleep: 30 # seconds between uploading a chunk
+xml_chunk_size: 1000 # number of records in an XML chunk
+triples_chunk_size: 500000 # number of rows in a triples chunk
+break_on_fail: false # if true we stop uploading when we encounter an error

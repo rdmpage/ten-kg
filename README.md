@@ -48,6 +48,19 @@ graph_parameter: graph
 default_graph:   default
 ```
 
+For Blazegraph the equivalent configuration is:
+
+```
+url:              http://localhost:9999/blazegraph
+query_endpoint:   sparql
+upload_endpoint:  sparql
+update_endpoint:            
+graph_parameter:  context-uri
+default_graph:
+```
+
+:warning: Note that if using Blazegraph as a triple store the MIME type for triples **must be** `text/rdf+n3` in order to preserve UTF-8 encoding.
+
 ### Oxigraph
 
 Two start Oxigraph:
@@ -56,5 +69,43 @@ Two start Oxigraph:
 oxigraph_server -l . serve 
 ```
 
-It will now be ready to accept uploads from `upload.php`’.
+It will now be ready to accept uploads from `upload.php`.
+
+### Blazegraph
+
+Blazegraph can be run using Docker:
+
+```
+docker run -d -p 9999:9999 openkbs/blazegraph
+```
+
+It will now be ready to accept uploads from `upload.php`.
+
+
+## Queries
+
+### Find people at an institution that work on fungi
+
+This query uses `RINGGOLD:41803` as the identifier for the Total Botanic Gardens Edinburgh (RBGE), and finds people at the RBGE who have published new fungal names:
+
+```
+PREFIX schema: <http://schema.org/>
+SELECT DISTINCT ?person ?person_name
+FROM <https://www.indexfungorum.org>
+FROM <https://orcid.org>
+WHERE {
+  ?id schema:propertyID "RINGGOLD" .
+  ?id schema:value "41803" .
+  ?org schema:identifier ?id .
+  ?person schema:affiliation ?org .
+  ?work schema:creator ?person .
+  ?taxonName schema:isBasedOn ?work .
+  ?taxonName schema:name ?name .
+  {
+  ?person schema:givenName ?givenName .
+  ?person schema:familyName ?familyName .
+    BIND(CONCAT(?givenName, " ", ?familyName) AS ?person_name).
+  }
+ }
+```
 

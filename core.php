@@ -473,13 +473,13 @@ function get_source_rdf($source, $force = false)
 {
 	$errors = array();
 
-	// default output name
-	$dest_filename = 'output';
 	
 	// get output name from source URL
 	$url_parts = parse_url($source->distribution->contentUrl);	
 	
-	$dest_filename =  basename($url_parts['path']);
+	$ext = pathinfo($url_parts['path'], PATHINFO_EXTENSION);
+	
+	$dest_filename =  time() . '.' . $ext;
 			
 	if (!file_exists($dest_filename) || $force)
 	{	
